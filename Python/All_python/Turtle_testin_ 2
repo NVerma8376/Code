@@ -1,0 +1,16 @@
+import turtle
+
+win = turtle.Screen()
+win.bgcolor("black")
+win.setup(width=800, height=600)
+win.tracer(0)
+
+player = turtle.Turtle()
+player.speed(0)
+player.shape("square")
+player.color("red")
+player.penup()
+player.shapesize(stretch_wid=5, stretch_len=1)
+player.goto(-350, 0)
+
+
