@@ -1,2 +1,8 @@
-#check what is below you it is in another file:)
-PI=22/7
+import math
+
+def logx(x):
+    if x == 0:
+        return - 100
+    return math.log(x)
+
+print(logx(16))
