@@ -29,3 +29,4 @@ for g in binaryOut:
     print(g, end="")
     
 print("")
+
