@@ -1,40 +1,24 @@
 import pygame
-from pygame.locals import *
-from random import *
 
-#Variables
-width = 100
-height = 30
-color = [0,0,255]
-
-# Init
 pygame.init()
-screen = pygame.display.set_mode((800, 800))
-screen.fill((255,255,255))
-sprite = pygame.sprite.Group()
-x = 400
-y = 400
+window = pygame.display.set_mode((250, 250))
+rect1 = pygame.Rect(*window.get_rect().center, 0, 0).inflate(75, 75)
+rect2 = pygame.Rect(0, 0, 75, 75)
 
-class rectangle(pygame.sprite.Sprite):
-    def __init__(self,x,y,width,height,color):
-        super().__init__()
-        self.image = pygame.Surface([width, height])
-        self.image.fill(color)
-        pygame.draw.rect(self.image,
-                         color,
-                         pygame.Rect(400, 400, width, height))
-  
-        self.rect = self.image.get_rect()
-        
-#Setup
-rect = rectangle(x,y,width,height,color)
-sprite.add(rect)   
-        
-running = True
-while running:
+run = True
+while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-    sprite.update()
-    sprite.draw(screen)
-    pygame.display.flip()   
+            run = False
+
+    rect2.center = pygame.mouse.get_pos()
+    collide = rect1.colliderect(rect2)
+    color = (255, 0, 0) if collide else (255, 255, 255)
+
+    window.fill(0)
+    pygame.draw.rect(window, color, rect1)
+    pygame.draw.rect(window, (0, 255, 0), rect2, 6, 1)
+    pygame.display.flip()
+
+pygame.quit()
+exit()
