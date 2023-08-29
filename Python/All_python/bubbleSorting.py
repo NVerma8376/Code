@@ -1,5 +1,3 @@
-import numpy as np
-
 def bubbleSort(object1):
     passes = len(object1)   
     distro = 3
