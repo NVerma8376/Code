@@ -25,7 +25,7 @@ def estimate_pi(num_points):
     pi_estimate = (inside_circle / num_points) * 4
     return pi_estimate, x_inside, y_inside, x_outside, y_outside
 
-num_points = 1000000000
+num_points = int(input("Enter the number of points: "))
 pi_estimate, x_inside, y_inside, x_outside, y_outside = estimate_pi(num_points)
 
 print("Estimated π:", pi_estimate)
@@ -38,4 +38,6 @@ plt.ylabel('y')
 plt.title(f'Estimating π using {num_points} points')
 plt.legend()
 plt.gca().add_artist(plt.Circle((0, 0), 1, color='black', fill=False))
+plt.title('Estimate of Pi: {:.4f}'.format(pi_estimate))
 plt.show()
+plt.savefig('Pi_calc.png')
