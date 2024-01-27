@@ -42,7 +42,7 @@ for ball in balls:
     ball.dx = random.randint(-4, 4)
     ball.da = random.randint(-5, 5)
 
-gravity = 0.1
+gravity = 0.01
 
 while True:
     win.update()

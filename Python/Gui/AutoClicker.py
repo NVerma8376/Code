@@ -7,7 +7,8 @@ import time
 
 keys = []
 ctrl_pressed = False
-button_pressed = False
+Leftbutton_pressed = False
+Rightbutton_pressed = False
 
   
 def on_press(key):
@@ -45,9 +46,12 @@ def on_key_release(key):
             
         
 def on_click(x, y, button, pressed):
-    global button_pressed
+    global Leftbutton_pressed
+    global Rightbutton_pressed
     if button == mouse.Button.left:
-      button_pressed = pressed
+      Leftbutton_pressed = pressed
+    if button == mouse.Button.right:
+      Rightbutton_pressed = pressed
 
 
 
@@ -71,7 +75,10 @@ mouse_thread.start()
 
 while True:
     time.sleep(0)
-    if button_pressed and ctrl_pressed:
+    if Leftbutton_pressed and ctrl_pressed:
         for i in range(5):
-            
             ai.click(clicks=3)
+    
+    if Rightbutton_pressed and ctrl_pressed:
+        for i in range(0,3):
+            ai.click(button='right', clicks=4)
