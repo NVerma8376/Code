@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Signup to Proxio </title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+   </head>
+<body>
+  <div class="wrapper">
+    <h2>Signup</h2>
+    <form action="#", method="post" action="{{ url_for('display')}}">
+      <div class="input-box">
+        <input name="fullname" type="text" placeholder="Enter your name" required>
+      </div>
+      <div class="input-box">
+        <input name="email" type="text" placeholder="Enter your email" required>
+      </div>
+      <div class="input-box">
+        <input name="pin" type="text" placeholder="Enter your pin code" required>
+      </div>
+      <div class="input-box">
+        <input name="password"type="password" placeholder="Create password" required>
+      </div>
+      <div class="input-box button">
+        <input type="Submit" value="Register Now" name = "submit" >
+      </div>
+      <div class="text">
+        <h3>Already have an account?<a href="/User"> Login</a></h3>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
