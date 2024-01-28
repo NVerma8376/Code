@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Home</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/home.css') }}">
+  </head>
+  <body>
+    <!-- navbar -->
+    <nav class="navbar">
+      <div class="logo_item">
+        <i class="bx bx-menu" id="sidebarOpen"></i>
+        <img src="images/logo.png" alt=""></i>LifeZone
+      </div>
+
+
+
+      <div href="login.html" class="navbar_content">
+        <a href="profile.html"><img src="images/profile.jpg" alt="" class="profile"></a>
+      </div>
+    </nav>
+
+    <!-- sidebar -->
+    <nav class="sidebar">
+      <div class="menu_content">
+        <ul class="menu_items">
+          <div class="menu_title menu_dahsboard"></div>
+          <!-- start -->
+          <li class="item">
+            <div href="home.html" class="nav_link submenu_item">
+              <span class="navlink_icon">
+                <i class="bx bx-home-alt"></i>
+              </span>
+              <span class="navlink">Home</span>
+            </div>
+          </li>
+          <!-- end -->
+
+          <!-- start -->
+          <li class="item">
+            <a href="/find" class="nav_link">
+              <span class="navlink_icon">
+                <i class='bx bx-user-pin' ></i>
+              </span>
+              <span class="navlink">Find</span>
+            </a>
+          </li>
+          <!-- end -->
+
+          <li class="item">
+            <a href="/profile" class="nav_link">
+              <span class="navlink_icon">
+                <i class='bx bxs-user'></i>
+              </span>
+              <span class="navlink">Your Profile</span>
+            </a>
+          </li>
+
+          <li class="item">
+            <a href="login.html" class="nav_link">
+              <span class="navlink_icon">
+                <i class='bx bx-log-in-circle' ></i>
+              </span>
+              <span class="navlink">Login</span>
+            </a>
+          </li>
+        </ul>
+
+          <!-- End -->
+
+        <!-- Sidebar Open / Close -->
+        <div class="bottom_content">
+          <div class="bottom expand_sidebar">
+            <span> Expand</span>
+            <i class='bx bx-log-in' ></i>
+          </div>
+          <div class="bottom collapse_sidebar">
+            <span> Collapse</span>
+            <i class='bx bx-log-out'></i>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- JavaScript -->
+    <script src="home.js"></script>
+  </body>
+</html>

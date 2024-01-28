@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | LifeZone</title>
+
+    <!-- CSS -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/profile.css') }}">
+
+    <!-- Boxicons CSS -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="profile-card">
+      <div class="image">
+        <img src="images/profile.jpg" alt="" class="profile-img" />
+      </div>
+
+      <div class="text-data">
+        <span class="name">Name</span>
+        <span class="job">Seeker/Donor</span>
+      </div>
+
+    
+
+      <div class="buttons">
+        <button class="button">Message</button>
+      </div>
+
+      <div class="analytics">
+        <div class="data">
+          <i class='bx bx-phone-call'></i>
+          <span class="number">7975924841</span>
+        </div>
+        <div class="data">
+          <i class='bx bxs-droplet-half' ></i>
+          <span class="number">O+</span>
+        </div>
+        <div class="data">
+          <i class='bx bx-user-circle'></i>
+          <span class="number">21</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+{% extends 'base.html' %} {% block content %}
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+    *{
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .send{
+      background-color: rgb(177, 135, 255);
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+    
+    
+      .send-btn-chat{
+        border-radius: 10px;
+        background-color: rgb(219, 179, 255);
+      }
+    
+    
+    
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background-color: rgb(102, 167, 241);
+      }
+
+      .join {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+      }
+
+      .create-btn {
+        width: 100%;
+      }
+
+      .message-box {
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        background-color: #4070f4;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        align-items: stretch;
+      }
+
+      .messages {
+        overflow-y: scroll;
+        flex: 1;
+        width: 100%;
+        padding-left: 70px;
+        padding-top: 10px;
+        background-color: #e7f2fd;
+        font-family: "Poppins", sans-serif;
+
+      }
+    
+      .top-pad{
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+
+      .inputs {
+        padding: 10px;
+        display: flex;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      #message {
+        flex: 1;
+        background-color: #e8f4fb;
+        padding-left: 10px;
+        padding-bottom: 20px;
+        border-radius: 10px;
+      }
+
+      .text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 60px;
+      }
+
+      .muted {
+        font-size: 10px;
+        color: darkgray;
+      }
+  </style>
+
+<div class="message-box">
+  <h2 class = "top-pad">You are now chatting</h2>
+  <div class="messages" id="messages"></div>
+  <div class="inputs">
+    <input
+      type="text"
+      rows="3"
+      placeholder="Message"
+      name="message"
+      id="message"
+    />
+    <button class = "send-btn-chat" type="button" name="send" id="send-btn" onClick="sendMessage()">
+      Send
+    </button>
+  </div>
+</div>
+<script type="text/javascript">
+  var socketio = io();
+
+  const messages = document.getElementById("messages");
+
+  const createMessage = (name, msg) => {
+    const content = `
+    <div class="text">
+        <span>
+            <strong>${name}</strong>: ${msg}
+        </span>
+        <span class="muted">
+            ${new Date().toLocaleString()}
+        </span>
+    </div>
+    `;
+    messages.innerHTML += content;
+  };
+
+  socketio.on("message", (data) => {
+    createMessage(data.name, data.message);
+  });
+
+  const sendMessage = () => {
+    const message = document.getElementById("message");
+    if (message.value == "") return;
+    socketio.emit("message", { data: message.value });
+    message.value = "";
+  };
+</script>
+{% for msg in messages %}
+<script type="text/javascript">
+  createMessage("{{msg.name}}", "{{msg.message}}");
+</script>
+{% endfor %} {% endblock %}

@@ -2,9 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import join_room, leave_room, send, SocketIO
 import random
 from string import ascii_uppercase
- 
-# Flask constructor takes the name of 
-# current module (__name__) as argument.
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "hjhjsdahhds"
 socketio = SocketIO(app)
@@ -12,68 +10,18 @@ socketio = SocketIO(app)
 rooms = {}
 room = ""
 
-fullname = ""
-signupemail = ""
-email = ""
-pin = ""
-signuppassword = ""
-password = ""
- 
-# The route() function of the Flask class is a decorator, 
-# which tells the application which URL should call 
-# the associated function.
-@app.route('/', methods=["POST", "GET"])
-def get_name():
-    if "submit" in request.form:
-        global fullname
-        global signupemail
-        global pin
-        global signuppassword
-        # getting input with name = fname in HTML form
-        fullname = request.form.get("fullname")
-        signupemail = request.form.get("email")
-        pin = request.form.get("pin")
-        signuppassword = request.form.get("password")
+def generate_unique_code(length):
+    while True:
+        code = ""
+        for _ in range(length):
+            code += random.choice(ascii_uppercase)
         
-        return redirect(url_for('display'))
-    return render_template("signup.html")
- 
- 
-@app.route('/login', methods=["POST", "GET"])
-def display():
-    global signupemail
-    global email
-    global signuppassword
-    global password
+        if code not in rooms:
+            break
     
-    if request.method == "POST":
-        
-        email = request.form.get("email")
-        password = request.form.get("password")
-        
-        if email == signupemail and password == signuppassword:
-            return redirect(url_for('Home'))
-        
-    return render_template("login.html")
+    return code
 
-
-@app.route('/Home', methods=["POST", "GET"])
-def Home():
-    return render_template("home.html")
-
-@app.route('/find', methods=["POST", "GET"])
-def find():
-    return render_template("find.html")
-
-@app.route("/room")
-def room():
-    room = session.get("room")
-    if room is None or session.get("name") is None or room not in rooms:
-        return redirect(url_for("home"))
-
-    return render_template("room.html", code=room, messages=rooms[room]["messages"])
-
-@app.route("/join", methods=["POST", "GET"])
+@app.route("/", methods=["POST", "GET"])
 def home():
     session.clear()
     global room
@@ -112,12 +60,13 @@ def home():
 
     return render_template("join.html")
 
+@app.route("/room")
+def room():
+    room = session.get("room")
+    if room is None or session.get("name") is None or room not in rooms:
+        return redirect(url_for("home"))
 
-
-
-@app.route('/profile')
-def profile():
-    return render_template("profile.html")
+    return render_template("room.html", code=room, messages=rooms[room]["messages"])
 
 @socketio.on("message")
 def message(data):
@@ -162,11 +111,5 @@ def disconnect():
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left the room {room}")
 
-
-
-# main driver function
-if __name__ == '__main__':
- 
-    # run() method of Flask class runs the application 
-    # on the local development server.
+if __name__ == "__main__":
     socketio.run(app, debug=True)
