@@ -19,9 +19,6 @@ pin = ""
 signuppassword = ""
 password = ""
  
-# The route() function of the Flask class is a decorator, 
-# which tells the application which URL should call 
-# the associated function.
 @app.route('/', methods=["POST", "GET"])
 def get_name():
     if "submit" in request.form:
@@ -65,13 +62,9 @@ def Home():
 def find():
     return render_template("find.html")
 
-@app.route("/room")
-def room():
-    room = session.get("room")
-    if room is None or session.get("name") is None or room not in rooms:
-        return redirect(url_for("home"))
-
-    return render_template("room.html", code=room, messages=rooms[room]["messages"])
+@app.route('/profile')
+def profile():
+    return render_template("profile.html")
 
 @app.route("/join", methods=["POST", "GET"])
 def home():
@@ -115,12 +108,14 @@ def home():
 
     return render_template("join.html")
 
+@app.route("/room")
+def room():
+    room = session.get("room")
+    if room is None or session.get("name") is None or room not in rooms:
+        return redirect(url_for("home"))
 
+    return render_template("room.html", code=room, messages=rooms[room]["messages"])
 
-
-@app.route('/profile')
-def profile():
-    return render_template("profile.html")
 
 @socketio.on("message")
 def message(data):
