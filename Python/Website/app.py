@@ -94,8 +94,11 @@ def home():
             
         if 'join2' in request.form:
             room = 'HRIDAYAN'
-            room[room] = {"members": 0, "messages": []}
+            rooms[room] = {"members": 0, "messages": []}
             
+        if 'join3' in request.form:
+            room = 'NIKUNJ'
+            rooms[room] = {"members": 0, "messages": []}
             
         
         #room = code
