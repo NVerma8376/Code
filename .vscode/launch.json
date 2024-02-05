@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "HelloWorld",
+            "request": "launch",
+            "mainClass": "HelloWorld",
+            "projectName": "Code_5b875369"
+        },
+        {
             "type": "bashdb",
             "request": "launch",
             "name": "Bash-Debug (simplest configuration)",
