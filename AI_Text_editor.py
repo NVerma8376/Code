@@ -13,7 +13,7 @@ class TextEditor:
         background_color = "black"
         foreground_color = "white"
         
-        AImodel = "phi3"
+        AImodel = "phi"
         self.text_area = tk.Text(self.window, wrap=tk.WORD, bg=background_color, fg=foreground_color, insertbackground=foreground_color, selectbackground="lightblue")
         self.text_area.pack(expand=tk.YES, fill=tk.BOTH)
 
@@ -43,6 +43,7 @@ class TextEditor:
         edit_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Ai", menu=edit_menu)
         edit_menu.add_command(label="phi", command=self.phi_ai)
+        edit_menu.add_command(label="phi3", command=self.phi3_ai)
         edit_menu.add_command(label="wizard-math", command=self.wizard_math_ai)
         edit_menu.add_command(label="llama3", command=self.llama3_ai)
         edit_menu.add_command(label="mistral", command=self.mistral_ai)
@@ -92,7 +93,7 @@ class TextEditor:
     def Barbie_theme(self):
         global foreground_color, background_color
         foreground_color = "#f8098c"
-        background_color = "light pink"
+        background_color = "#F9D2ED"
         self.text_area.config(bg=background_color, fg=foreground_color, insertbackground=foreground_color)
 
     def create_toolbar(self):
@@ -120,12 +121,16 @@ class TextEditor:
 
     def exit_editor(self):
         self.window.quit()
+
+    def phi_ai(self):
+        global AImodel
+        AImodel = "phi"
     
     def wizard_math_ai(self):
         global AImodel
         AImodel = "wizard-math"
 
-    def phi_ai(self):
+    def phi3_ai(self):
         global AImodel
         AImodel = "phi3"
     
@@ -162,6 +167,7 @@ class TextEditor:
         if last_line.strip().endswith("/ask"):
             question = last_line.strip()[:-4].strip()
             answer = askquestion(question)
+            self.text_area.insert(tk.END, f"\nGenrating Answer")
             self.text_area.insert(tk.END, f"\nAI: {answer}\n")
 
 def askquestion(question):
