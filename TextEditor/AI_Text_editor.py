@@ -62,8 +62,9 @@ class TextEditor:
         tools_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Tools", menu=tools_menu)
         tools_menu.add_command(label="Word Count", command=self.word_count)
-        tools_menu.add_cascade(label="Calculator", command=self.calculator)
-        tools_menu.add_cascade(label="Speech To Text", command=self.STT)
+        tools_menu.add_command(label="Calculator", command=self.calculator)
+        tools_menu.add_command(label="Speech To Text", command=self.STT)
+        tools_menu.add_command(label="Text To Speech", command=self.GET_TTS)
 
         theme_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Theme", menu=theme_menu)
@@ -170,19 +171,25 @@ class TextEditor:
 
     def calculator(self):
         try:
-            pyautogui.keyDown("Ctrl")
-            pyautogui.keyDown("Alt")
-            pyautogui.keyDown("m")
-            pyautogui.keyUp("Ctrl")
-            pyautogui.keyUp("Alt")
-            pyautogui.keyUp("m")
+            pyautogui.hotkey('Ctrl','Alt','m')
         except:
-            self.text_area.insert(tk.END, f"\nTry again later.\n")
+            print("Unable to open calculator")
 
     def STT(self):
         global STTtext
         STTtext = stt.listen()
-        self.text_area.insert(tk.END, f"\n{STTtext}\n")
+        self.text_area.insert(tk.END, f"\n{STTtext}")
+
+    def GET_TTS(self):
+        lines = self.text_area.get("1.0", tk.END).split("\n")
+        last_line = lines[-2] if lines[-1] == "" else lines[-1]
+        engine = pyttsx3.init()
+        voices = engine.getProperty('voices')
+        engine.setProperty('rate', 130)
+        engine.setProperty('voice', voices[12].id)
+        engine.say(last_line)
+        engine.runAndWait()
+            
 
 
 
@@ -199,6 +206,12 @@ def askquestion(question):
     response = ollama.chat(model=AImodel, messages=[{'role': 'user', 'content': question}], stream=False)
     answer = response['message']['content']
     return answer
+
+def TTS(question):
+    engine = pyttsx3.init()
+    engine.say(question)
+    engine.runAndWait()
+
 
 if __name__ == "__main__":
     text_editor = TextEditor()
