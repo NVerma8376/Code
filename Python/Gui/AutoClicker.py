@@ -87,3 +87,7 @@ class start_autoclicker:
             if Rightbutton_pressed and ctrl_pressed:
                 for i in range(0,3):
                     ai.click(button='right', clicks=cps)
+                    
+AC = start_autoclicker()
+
+AC.autoclick(10)

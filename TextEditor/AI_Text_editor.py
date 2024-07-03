@@ -4,12 +4,15 @@ import ollama
 import pyautogui
 import pyttsx3
 import SpeechToText as stt
+import pdfplumber
+import os
 
 class TextEditor:
     def __init__(self):
         global AImodel
         global background_color, foreground_color
         global STTtext
+        global file
         self.window = tk.Tk()
         self.window.title("Text Editor")
         
@@ -19,6 +22,9 @@ class TextEditor:
         
         AImodel = "phi"
         STTtext = ""
+        file = ""
+
+
         self.text_area = tk.Text(self.window, wrap=tk.WORD, bg=background_color, fg=foreground_color, insertbackground=foreground_color, selectbackground="lightblue")
         self.text_area.pack(expand=tk.YES, fill=tk.BOTH)
 
@@ -65,6 +71,7 @@ class TextEditor:
         tools_menu.add_command(label="Calculator", command=self.calculator)
         tools_menu.add_command(label="Speech To Text", command=self.STT)
         tools_menu.add_command(label="Text To Speech", command=self.GET_TTS)
+        tools_menu.add_command(label="PDF text extract", command=self.pdfextract)
 
         theme_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Theme", menu=theme_menu)
@@ -73,6 +80,11 @@ class TextEditor:
         theme_menu.add_command(label="Blue", command=self.blue_theme)
         theme_menu.add_command(label="Hacker", command=self.Hacker_theme)
         theme_menu.add_command(label="Barbie", command=self.Barbie_theme)
+
+        execution_menu = tk.Menu(menu, tearoff=0)
+        menu.add_cascade(label="Run", menu=execution_menu)
+        execution_menu.add_command(label="Python", command=self.PythonRun)
+        execution_menu.add_command(label="HTML", command=self.HTMLRun)
 
     def light_theme(self):
         global foreground_color, background_color
@@ -113,6 +125,7 @@ class TextEditor:
         self.text_area.delete(1.0, tk.END)
 
     def open_file(self):
+        global file
         file = filedialog.askopenfilename(defaultextension=".chapri", filetypes=[("Chapri Files", "*.chapri"), ("All Files", "*.*")])
         if file:
             self.window.title(f"Python Text Editor - {file}")
@@ -121,6 +134,7 @@ class TextEditor:
                 self.text_area.insert(tk.INSERT, file_handler.read())
 
     def save_file(self):
+        global file
         file = filedialog.asksaveasfilename(defaultextension=".chapri", filetypes=[("Chapri Files", "*.chapri"), ("All Files", "*.*")])
         if file:
             with open(file, "w") as file_handler:
@@ -190,8 +204,28 @@ class TextEditor:
         engine.say(last_line)
         engine.runAndWait()
             
+    def pdfextract(self):
+        global file
+        global reader
+        file = ""
+        file = filedialog.askopenfilename(defaultextension=".pdf", filetypes=[("PDF Files", "*.pdf"), ("All Files", "*.*")])
+
+        pdf = pdfplumber.open(file)
+        for number, pageText in enumerate(pdf.pages):
+            print("Page Number:", number)
+            text = (pageText.extract_text())
+            self.text_area.insert(tk.END, text)
 
 
+    def PythonRun(self):
+        global file
+        command = f"python {file}"
+        os.system(command)
+
+    def HTMLRun(self):
+        global file
+        command = f"opera {file}"
+        os.system(command)
 
     def ask_last_question(self, event):
         lines = self.text_area.get("1.0", tk.END).split("\n")
