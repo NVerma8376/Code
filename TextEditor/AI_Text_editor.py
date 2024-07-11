@@ -59,7 +59,7 @@ class TextEditor:
         edit_menu.add_command(label="llama3", command=self.llama3_ai)
         edit_menu.add_command(label="mistral", command=self.mistral_ai)
         edit_menu.add_command(label="PiratePhi", command=self.PiratePhi_ai)
-        edit_menu.add_command(label="summarizer", command=self.summarizer_ai)
+        
 
         format_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Format", menu=format_menu)
@@ -72,6 +72,7 @@ class TextEditor:
         tools_menu.add_command(label="Speech To Text", command=self.STT)
         tools_menu.add_command(label="Text To Speech", command=self.GET_TTS)
         tools_menu.add_command(label="PDF text extract", command=self.pdfextract)
+        tools_menu.add_command(label="PDF text Summarize", command=self.summarizer_ai)
 
         theme_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Theme", menu=theme_menu)
@@ -168,9 +169,6 @@ class TextEditor:
         global AImodel
         AImodel = "PiratePhi"
 
-    def summarizer_ai(self):
-        global AImodel
-        AImodel = "summarizer"
 
     def change_font(self):
         font_tuple = tkfont.Font(font=self.text_area["font"])
@@ -215,6 +213,17 @@ class TextEditor:
             print("Page Number:", number)
             text = (pageText.extract_text())
             self.text_area.insert(tk.END, text)
+
+    def summarizer_ai(self):
+        file = filedialog.askopenfilename(defaultextension=".pdf", filetypes=[("PDF Files", "*.pdf"), ("All Files", "*.*")])
+        pdf = pdfplumber.open(file)
+        for number, pageText in enumerate(pdf.pages):
+            print("Page Number:", number)
+            text = (pageText.extract_text())
+            question = text + ",summarize this"
+            answer = askquestion(question)
+            self.text_area.insert(tk.END, f"\nAI: {answer}\n")
+
 
 
     def PythonRun(self):
