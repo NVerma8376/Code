@@ -6,6 +6,7 @@ import pyttsx3
 import SpeechToText as stt
 import pdfplumber
 import os
+import Summarizer
 
 class TextEditor:
     def __init__(self):
@@ -183,7 +184,8 @@ class TextEditor:
 
     def calculator(self):
         try:
-            pyautogui.hotkey('Ctrl','Alt','m')
+            with pyautogui.hold(['ctrl','alt']):
+                pyautogui.press('m')
         except:
             print("Unable to open calculator")
 
@@ -220,9 +222,8 @@ class TextEditor:
         for number, pageText in enumerate(pdf.pages):
             print("Page Number:", number)
             text = (pageText.extract_text())
-            question = text + ",summarize this"
-            answer = askquestion(question)
-            self.text_area.insert(tk.END, f"\nAI: {answer}\n")
+            answer = Summarizer.summary(text)
+            self.text_area.insert(tk.END, answer)
 
 
 
