@@ -1,0 +1,77 @@
+* {
+    padding: 0px;
+    margin: 0px
+}
+
+
+#start{
+    padding-left: 0px;
+    padding-top: 50px;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 36px;
+    border: 3px solid rgb(255, 255, 255);
+    color: rgb(229, 229, 229);
+}
+
+#startdesc{
+    background-color: rgb(0, 0, 0);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    color: rgb(177, 177, 177);
+    border: 2px solid white;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
+}
+
+.grid-child1{
+    border:3px solid white;
+    background-color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+
+.grid-child2{
+    border:3px solid white;
+    background-color: black;
+    padding-top:20px;
+    padding-bottom: 20px;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+.end{
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 36px;
+    border: 3px solid rgb(255, 255, 255);
+    color: white;
+    padding-bottom: 25px;
+}
+.project{
+    background-color: rgb(134, 134, 134);
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: white;
+    font-size: 30px;
+}
+#enddesc{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+p{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    font-size: 20px;
+}

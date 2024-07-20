@@ -5,9 +5,16 @@ app = Flask(__name__)
 
 socketio = SocketIO(app)
 
-@app.route("/")
+@app.route("/" , methods=["GET", "POST"])
 def home():
-    return render_template("index.html")
+    if request.method == "POST":
+        return redirect(url_for("projects"))
+    return render_template("About.html")
+
+@app.route("/projects", methods=["GET", "POST"])
+def projects():
+    return render_template("projects.html")
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
