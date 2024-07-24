@@ -26,13 +26,23 @@ def chat():
     if "phi" in request.form:
         ai = "phi"
         data= []
-    if "llama3" in request.form:
+    elif "llama3" in request.form:
         ai = "llama3"
+        data = []
+    elif "mistral" in request.form:
+        ai = "mistral"
+        data= []
+    elif "wizardmath" in request.form:
+        ai = "wizard-math"
+        data = []
+    elif "codellama" in request.form:
+        ai = "codellama:70b"
         data = []
 
     if "ABOUT" in request.form:
-            return render_template("index.html")
             data = []
+            return render_template("index.html")
+            
 
     if "submit" in request.form:
         
