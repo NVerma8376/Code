@@ -1,0 +1,456 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+    --background-color: black;
+    --border-color: rgb(85, 85, 85);
+    --cursor-color: rgba(255, 255, 255, 1);
+}
+
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    cursor: none; /* Hide the default cursor */
+    font-family: 'Arial';
+    color: white; 
+}
+
+::selection {
+    background: blue;
+    color: #000000; 
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a:hover, button:hover {
+    cursor: none;
+}
+
+.inner-cursor, .outer-cursor {
+    position: fixed;
+    left: 10px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: background-color 0.3s, border-color 0.3s;
+    mix-blend-mode: difference; /* Blend mode to invert colors */
+}
+
+.inner-cursor {
+    width: 20px;
+    height: 20px;
+    background-color: var(--cursor-color);
+    border-radius: 50%;
+    transition: width 0.5s, height 0.5s, background-color 0.3s;
+}
+
+.inner-cursor.grow {
+    width: 65px;
+    height: 65px;
+    transition: width 0.4s, height 0.4s;
+}
+
+.outer-cursor.grow {
+    border: none;
+}
+
+.outer-cursor {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--cursor-color);
+    border-radius: 50%;
+    transition: 0.1s;
+}
+
+h1, h2, h3, a, p, span {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove underline from links */
+}
+
+a {
+    color: inherit; /* Inherit text color */
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+}
+
+nav > .nav-section {
+    padding: 1.5rem 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: relative; /* Ensure stacking context for z-index */
+}
+
+#nav-logo-section {
+    justify-content: flex-start;
+    font-size: 2.5rem;
+}
+
+#nav-link-section {
+    gap: 6rem;
+    justify-content: center;
+}
+
+#nav-social-section {
+    gap: 3rem;
+    justify-content: flex-end;
+}
+
+#nav-contact-section {
+    justify-content: flex-end;
+}
+
+main {
+    flex-grow: 1;
+}
+
+main > article {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+}
+
+main > article > .article-section {
+    border-left: 1px solid var(--border-color);
+}
+
+main > article > .article-description-section,
+main > article > .article-nav-section {
+    border-left: 1px solid var(--border-color);
+}
+
+main > article > .article-title-section,
+main > article > .article-nav-section {
+    border-top: 1px solid var(--border-color);
+}
+
+.gridimg {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.description-para {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 50px;
+    padding-top: 200px;
+}
+
+.title-content {
+    padding-left: 25px;
+    margin-bottom: 5px;
+    font-size: 3.1rem;
+    letter-spacing: 14px;
+    font-weight: 800;
+    font-family: 'Ubuntu', sans-serif;
+    line-height: 0.75;
+}
+
+.text {
+    height: 100vh;
+    background-color: black;
+    margin: 0rem;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+
+.contact {
+  background-color: white;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-title-thing {
+    width: 120vh;   
+    font-size: 3.5rem;
+    padding-left: 27px;
+    padding-top: 35px;
+    display: flex;
+    line-height: 0.0000000001rem;
+    justify-content: flex-start;
+}
+
+.hero-title {
+    color: white;
+    font-family: 'Roboto';
+    transition: opacity 250ms ease;
+    margin-left: 20px;
+    font-weight: 250;
+}
+
+.unique-text {
+    margin-left: 40px;
+    font-weight: 250;
+    background-image: linear-gradient(to right, #d9ff00, #e3ff42, #ecff62, #f3ff7d, #f9ff96);
+    background-clip: text;
+    color: transparent;
+}
+
+.different-text {
+    margin-left: 40px;
+    font-weight: 250;
+    background-image: linear-gradient(to right, #d9ff00, #e3ff42, #ecff62, #f3ff7d, #f9ff96);
+    background-clip: text;
+    color: transparent;
+}
+
+.learnify {
+    /* font-family: "Space Grotesk", sans-serif; */
+    font-size: 5rem;
+    letter-spacing: 8px;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+}
+
+#text:has(.fancy:hover) .hero-title:not(.fancy:hover) {
+    opacity: 0.2;
+}
+
+.fancy span {
+    display: inline-block;
+}
+
+@keyframes float {
+  from, to {
+    transform: translateY(-0%);
+  }
+  
+  50% {    
+    transform: translateY(-3%);
+  }
+}
+
+@keyframes background-pan {
+  from {
+    background-position: 1000% center;
+  }
+  
+  to {
+    background-position: 0% center;
+  }
+}
+
+.fancy > .letter {
+  transition: transform 350ms ease;
+}
+
+.fancy:hover > .letter {
+  transition-duration: 800ms;
+}
+
+.fancy:hover > .letter > .inner {
+  animation: float 5s ease infinite;
+}
+
+.fancy:hover > .letter > .inner > .letter {
+  background: linear-gradient(
+    to right,
+    var(--blue),
+    var(--green),
+    var(--blue)
+  );
+  background-size: 1000%;
+  -webkit-text-fill-color: transparent;
+  animation: background-pan 150s linear infinite;
+}
+
+.fancy:hover > .letter:nth-child(1) {
+  transform: translateY(-50%) rotate(-30deg);
+}
+
+.fancy:hover > .letter:nth-child(2) {
+  transform: translateY(-100%) rotate(10deg);
+}
+
+.fancy:hover > .letter:nth-child(3) {
+  transform: translateY(-150%) rotate(-20deg);
+}
+
+.fancy:hover > .letter:nth-child(4) {
+  transform: translateY(-200%) rotate(25deg);
+}
+
+.fancy:hover > .letter:nth-child(5) {
+  transform: translateY(-250%) rotate(-15deg);
+}
+
+.fancy:hover > .letter:nth-child(6) {
+  transform: translateY(-300%) rotate(25deg);
+}
+
+.fancy:hover > .letter:nth-child(7) {
+  transform: translateY(-350%) rotate(-10deg);
+}
+
+.fancy:hover > .letter:nth-child(8) {
+  transform: translateY(-400%) rotate(30deg);
+}
+
+.fancy:hover > .letter:nth-child(9) {
+  transform: translateY(-450%) rotate(-25deg);
+}
+
+.heroimg {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    margin-top: -100%;
+    margin-left: 45%;
+    transition: 1s ease-in-out;
+    padding-bottom: 25px;
+}
+
+.heroimg:hover {
+    animation: bigLootyLatinas ease-in-out;
+}
+
+@keyframes bigLootyLatinas {
+    0% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+/* @media(max-width: 700px) {
+    .heroimg {
+        width: 25%;
+        height: 25%;
+    }
+} */
+
+/* Additional CSS for Hamburger Menu */
+
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-section {
+        display: none;
+        width: 100%;
+    }
+
+    .nav-section.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #nav-logo-section {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-right: 1rem;
+    }
+
+    #nav-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 2rem;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .hamburger div {
+        width: 30px;
+        height: 3px;
+        background-color: var(--cursor-color);
+    }
+}
+
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.subtitle {
+    margin: 10px 0 20px;
+    font-size: 1.2em;
+}
+
+.question-container {
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: left;
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.question-number {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.question-text {
+    font-size: 1.1em;
+    flex-grow: 1;
+}
+
+.answer-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.aboutbtn{
+    background-color: #000000;
+    border: hidden;
+    color: white;
+    font-size: large;
+    font-weight: 300;
+}
+
+.chatbtn{
+    padding-left: 40%;
+    background-color: #000000;
+    border: hidden;
+    color: white;
+    font-size: large;
+    font-weight: 300;
+}
+
+.buttons{
+    display: flex;
+}
