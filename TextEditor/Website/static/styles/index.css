@@ -308,13 +308,14 @@ a {
 }
 
 .heroimg {
-    width: 50%;
-    height: 50%;
+    width: 70%;
+    height: 70%;
     object-fit: contain;
-    margin-top: -100%;
-    margin-left: 45%;
+    margin-top: -350%;
+    margin-left: 37%;
     transition: 1s ease-in-out;
     padding-bottom: 25px;
+    padding-top: 100px;
 }
 
 .heroimg:hover {
