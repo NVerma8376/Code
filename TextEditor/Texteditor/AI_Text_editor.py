@@ -7,6 +7,7 @@ import SpeechToText as stt
 import pdfplumber
 import os
 import Summarizer
+import google.generativeai as genai
 
 class TextEditor:
     def __init__(self):
@@ -14,7 +15,14 @@ class TextEditor:
         global background_color, foreground_color
         global STTtext
         global file
+        global Ai
+        global model
+
+        genai.configure(api_key=os.environ["API_KEY"])
+        model = genai.GenerativeModel("gemini-1.5-flash")
+
         self.window = tk.Tk()
+        Ai = "Offline"
         self.window.title("Text Editor")
         
         
@@ -52,8 +60,14 @@ class TextEditor:
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.exit_editor)
 
+        Ai_menu = tk.Menu(menu, tearoff=0)
+        menu.add_cascade(label="Ai", menu=Ai_menu)
+        Ai_menu.add_command(label="Online", command=self.online)
+        Ai_menu.add_command(label="Offline", command=self.offline)
+
+
         edit_menu = tk.Menu(menu, tearoff=0)
-        menu.add_cascade(label="Ai", menu=edit_menu)
+        menu.add_cascade(label="Model", menu=edit_menu)
         edit_menu.add_command(label="phi", command=self.phi_ai)
         edit_menu.add_command(label="phi3", command=self.phi3_ai)
         edit_menu.add_command(label="wizard-math", command=self.wizard_math_ai)
@@ -142,6 +156,14 @@ class TextEditor:
             with open(file, "w") as file_handler:
                 file_handler.write(self.text_area.get(1.0, tk.END))
             self.window.title(f"Python Text Editor - {file}")
+
+    def online(self):
+        global Ai
+        Ai = "Online"
+
+    def offline(self):
+        global Ai
+        Ai = "Offline"
 
     def exit_editor(self):
         self.window.quit()
@@ -247,9 +269,16 @@ class TextEditor:
 
 def askquestion(question):
     global AImodel
-    response = ollama.chat(model=AImodel, messages=[{'role': 'user', 'content': question}], stream=False)
-    answer = response['message']['content']
-    return answer
+    global Ai
+    global model
+    if Ai == "Offline":
+        response = ollama.chat(model=AImodel, messages=[{'role': 'user', 'content': question}], stream=False)
+        answer = response['message']['content']
+        return answer
+    elif Ai == "Online":
+        response = model.generate_content(question)
+        answer = response.text
+        return answer
 
 def TTS(question):
     engine = pyttsx3.init()

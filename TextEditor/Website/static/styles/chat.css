@@ -186,6 +186,11 @@ h2{
     color: #91959A
 }
 
+.quessbox:hover{
+    border: 1px solid var(--coolcolor);
+    
+}
+
 .ask {
     width: 80px;
     height: 60px;
@@ -197,6 +202,8 @@ h2{
     /*border: #333232 solid 1px;*/
     border: 1px solid var(--coolcolor);
 }
+
+
 
 
 .stt {
@@ -212,6 +219,12 @@ h2{
     /*border: #333232 solid 1px;*/
     border: 1px solid var(--coolcolor);
 }
+
+
+#question:hover{
+    background-color: #6b6b6b;
+}
+
 
 .gui {
     display: flex;
@@ -335,9 +348,25 @@ h2{
     border: none;
 }
 
-/* .cleardb:hover{
-    background-color: #444;
-} */
+.mode{
+    padding-left: 2px;
+    color: white;
+    margin-top: 5%;
+    margin-left: 2px;
+    font-size: 22px;
+    z-index: 1;
+    cursor: none;
+    background-color: #171719;
+    border: none;
+}
+
+.mode:hover{
+    color: #6d6b6b;
+}
+
+.cleardb:hover{
+    color: #6d6b6b;
+} 
 
 .buttonwalla{
     margin-left: 2px;

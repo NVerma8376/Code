@@ -1,13 +1,14 @@
 from flask import *
 from flask_socketio import *
-import ollamaAI
+import AI
 import SpeechToText as STT
 from tinydb import *
 
 
-global ai, data, questions
+global ai, data, questions, mode 
 ai = "phi"
 data = []
+mode = "offline"
 questions = []
 DB = Query()
 db = TinyDB("DATABASE.json")
@@ -29,7 +30,7 @@ def home():
 
 @app.route("/chat", methods=["POST","GET"])
 def chat():
-    global ai, data, questions
+    global ai, data, questions, mode
     if "phi" in request.form:
         ai = "phi"
         print(ai)
@@ -53,6 +54,16 @@ def chat():
     
     if "cleardb" in request.form:
          db.truncate()
+    
+    if "offline" in request.form:
+        mode = "offline"
+        print(mode)
+        data = []
+
+    if "online" in request.form:
+        mode = "online"
+        print(mode)
+        data = []
          
     if "ABOUT" in request.form:
             data = []
@@ -60,7 +71,7 @@ def chat():
     
     if "STT" in request.form:
             STTtext = STT.listen()
-            answer = ollamaAI.ans(STTtext, ai)
+            answer = AI.ans(STTtext, ai, mode)
             data.append(answer)
             questions.append(STTtext)
             db.insert({'question': STTtext, 'answer': answer})
@@ -73,7 +84,7 @@ def chat():
 
         if "quess" in request.form:
             question = request.form["quess"]
-            answer = ollamaAI.ans(question, ai)
+            answer = AI.ans(question, ai, mode)
             data.append(answer)
             questions.append(question)
             if "AI" in data:

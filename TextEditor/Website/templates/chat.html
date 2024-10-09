@@ -94,6 +94,8 @@
                         <!-- <input class="openbtn" type="submit" onclick="openNav()" value="☰"> -->
                         <!-- <button class="openbtn" onclick="openNav()">☰</button> -->
                         <input type="submit" name="cleardb" class="cleardb" value="Clear DB">
+                        <input type="submit" name="online" class="mode" value="Online AI">
+                        <input type="submit" name="offline" class="mode" value="Offline AI">
                     </form>
                 </div>
             </form>
@@ -108,13 +110,13 @@
                         </div>
                     <div class="gui">
                             <div>
-                                <input id="quessbox" autocomplete="off" class="quessbox" name="quess" type="text" placeholder="What is your question" value="{{quess}}" active>
+                                <input id="question" autocomplete="off" class="quessbox" name="quess" type="text" placeholder="What is your question" value="{{quess}}" active>
                             </div>
                             <div>
-                                <input class="ask" name="submit" type="submit" value="➜">
+                                <input id="question" class="ask" name="submit" type="submit" value="➜">
                             </div>
                             <div>
-                                <input class="stt" name="STT" type="submit" value="&#127908;">
+                                <input id="question" class="stt" name="STT" type="submit" value="&#127908;">
                             </div>
                     </div>
                         </div>
