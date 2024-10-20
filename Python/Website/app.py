@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from flask_socketio import join_room, leave_room, send, SocketIO
 import random
 from string import ascii_uppercase
- 
+
 # Flask constructor takes the name of 
 # current module (__name__) as argument.
 app = Flask(__name__)
@@ -18,7 +18,7 @@ email = ""
 pin = ""
 signuppassword = ""
 password = ""
- 
+
 @app.route('/', methods=["POST", "GET"])
 def get_name():
     if "submit" in request.form:
@@ -34,8 +34,8 @@ def get_name():
         
         return redirect(url_for('display'))
     return render_template("signup.html")
- 
- 
+
+
 @app.route('/login', methods=["POST", "GET"])
 def display():
     global signupemail
@@ -49,7 +49,7 @@ def display():
         password = request.form.get("password")
         
         if email == signupemail and password == signuppassword:
-            return redirect(url_for('Home'))
+            return redirect(url_for('join'))
         
     return render_template("login.html")
 
@@ -67,41 +67,25 @@ def profile():
     return render_template("profile.html")
 
 @app.route("/join", methods=["POST", "GET"])
-def home():
+def join():
     session.clear()
     global room
     if request.method == "POST":
         name = request.form.get("name")
         code = request.form.get("code")
-        Naitik = request.form.get("Naitik", False)
-        Hridayan = request.form.get("Hridayan", False)
-        join = request.form.get("join", False)
-        create = request.form.get("create", False)
 
         if not name:
             return render_template("join.html", error="Please enter a name.", code=code, name=name)
-    
-        if 'join1' in request.form:
-            room = 'NAITIK'
-            rooms[room] = {"members": 0, "messages": []}
-            
-        if 'join2' in request.form:
-            room = 'HRIDAYAN'
-            rooms[room] = {"members": 0, "messages": []}
-            
-        if 'join3' in request.form:
-            room = 'NIKUNJ'
-            rooms[room] = {"members": 0, "messages": []}
-            
-        
-        #room = code
-        if create != False:
-            print(f"hi")
-            #room = generate_unique_code(4)
-            #rooms[room] = {"members": 0, "messages": []}
-        elif code not in rooms:
-            return render_template("join.html", error="Room does not exist.", code=code, name=name)
-        
+
+        if not code:
+            return render_template("join.html", error="Please enter a code.", code=code, name=name)
+
+        room = code
+        # Check if room exists, otherwise create a new one
+        if room not in rooms:
+            rooms[room] = {"members": 0, "messages": []}  # Create new room if doesn't exist
+            print(f"Room {room} created.")
+
         session["room"] = room
         session["name"] = name
         return redirect(url_for("room"))
@@ -112,7 +96,7 @@ def home():
 def room():
     room = session.get("room")
     if room is None or session.get("name") is None or room not in rooms:
-        return redirect(url_for("home"))
+        return redirect(url_for("join"))
 
     return render_template("room.html", code=room, messages=rooms[room]["messages"])
 
@@ -159,7 +143,6 @@ def disconnect():
     
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left the room {room}")
-
 
 
 # main driver function

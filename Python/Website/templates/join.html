@@ -6,7 +6,7 @@
 <form method="post" class="buttons">
   <div class = "joining" name="joining">
     <h3>Enter The Chat Room</h3>
-    <div>
+    <div class="name">
       <label>Name:</label>
       <input
         type="text"
@@ -16,15 +16,8 @@
       />
     </div>
     <div class="join">
-      <button type="submit" name="join1"class="join1">Naitik</button>
-    </div>
-    <div class="join">
-      <button type="submit" name="join2"class="join2">Hridayan</button>
-    </div>
-    <div class="join">
-      <button type="submit" name="join3"class="join3">Nikunj</button>
-    </div>
-    <button type="submit" name="create" class="create-btn">Join the Room</button>
+      <input type="text" placeholder="Room Code" name="code">
+      <button type="submit">Join</button>
   </div>
 
     {% if error %}

@@ -1,4 +1,16 @@
 .joining{
-    padding-left: 600px;
-    background-color: rgb(167, 209, 246);
+    justify-content: center;
+    align-items: center;
+    height: 97vh;
+    background-color: #93d6f8;
+    padding-top: 50vh;
+    padding-left: 80vh;
+}
+
+.join{
+    padding-top: 50px;
+}
+
+.name{
+    padding-top: 50px;
 }

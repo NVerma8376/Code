@@ -5,6 +5,8 @@ import SpeechToText as STT
 from tinydb import *
 
 
+
+
 global ai, data, questions, mode 
 ai = "phi"
 data = []
