@@ -8,6 +8,8 @@ import pdfplumber
 import os
 import Summarizer
 import google.generativeai as genai
+import youtubeAPI
+import test
 
 class TextEditor:
     def __init__(self):
@@ -17,13 +19,15 @@ class TextEditor:
         global file
         global Ai
         global model
+        global engine
 
         genai.configure(api_key=os.environ["API_KEY"])
         model = genai.GenerativeModel("gemini-1.5-flash")
 
         self.window = tk.Tk()
         Ai = "Offline"
-        self.window.title("Text Editor")
+        self.window.title("PolyMath")
+
         
         
         background_color = "black"
@@ -88,6 +92,7 @@ class TextEditor:
         tools_menu.add_command(label="Text To Speech", command=self.GET_TTS)
         tools_menu.add_command(label="PDF text extract", command=self.pdfextract)
         tools_menu.add_command(label="PDF text Summarize", command=self.summarizer_ai)
+        tools_menu.add_command(label="Youtube Video Get", command=self.youtubeAPI)
 
         theme_menu = tk.Menu(menu, tearoff=0)
         menu.add_cascade(label="Theme", menu=theme_menu)
@@ -206,8 +211,7 @@ class TextEditor:
 
     def calculator(self):
         try:
-            with pyautogui.hold(['ctrl','alt']):
-                pyautogui.press('m')
+            pyautogui.hotkey('ctrl', 'alt', 'c')
         except:
             print("Unable to open calculator")
 
@@ -218,13 +222,8 @@ class TextEditor:
 
     def GET_TTS(self):
         lines = self.text_area.get("1.0", tk.END).split("\n")
-        last_line = lines[-2] if lines[-1] == "" else lines[-1]
-        engine = pyttsx3.init()
-        voices = engine.getProperty('voices')
-        engine.setProperty('rate', 130)
-        engine.setProperty('voice', voices[12].id)
-        engine.say(last_line)
-        engine.runAndWait()
+        line = lines[-2] if lines[-1] == "" else lines[-1]
+        test.tts(line)
             
     def pdfextract(self):
         global file
@@ -246,6 +245,16 @@ class TextEditor:
             text = (pageText.extract_text())
             answer = Summarizer.summary(text)
             self.text_area.insert(tk.END, answer)
+
+    
+    def youtubeAPI(self):
+        lines = self.text_area.get("1.0", tk.END).split("\n")
+        url = lines[-2] if lines[-1] == "" else lines[-1]
+        
+        video = youtubeAPI.get_video(url)
+        answer = f"The video is: {video}"
+        print(f"The video is: {video}")
+        self.text_area.insert(tk.END, f"\nAI: {answer}\n")
 
 
 
@@ -280,10 +289,13 @@ def askquestion(question):
         answer = response.text
         return answer
 
-def TTS(question):
-    engine = pyttsx3.init()
-    engine.say(question)
-    engine.runAndWait()
+# def TTS(question):
+#     engine = pyttsx3.init()
+#     voices = engine.getProperty('voices')
+#     engine.setProperty('rate', 130)
+#     engine.setProperty('voice', voices[12].id)
+#     engine.say(question)
+#     engine.runAndWait()
 
 
 if __name__ == "__main__":
