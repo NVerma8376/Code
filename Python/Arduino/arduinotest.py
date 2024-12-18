@@ -1,52 +1,46 @@
 import serial
 import time
 import stt
-import ollama
-import pyttsx3
+import os
+from ollama import *
+import google.generativeai as genai
 
-# Initialize pyttsx3 engine at the start of the script
-engine = pyttsx3.init()
+# Set up the serial connection
+arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600, timeout=1)  # Update '/dev/ttyUSB0' to your Arduino port
+time.sleep(2)  # Allow time for the connection to initialize
 
-global ispressed
-ispressed = False
-global answer, question
-answer = ""
-question = ""
+print("Python connected to Arduino")
 
-# Set up the serial connection to the Arduino
-serial1 = serial.Serial('/dev/ttyUSB0', 9600)
-print("connected to: " + serial1.portstr)
+def gen(input):
+    response: ChatResponse = chat(model='phi', messages=[
+      {
+        'role': 'user',
+        'content': input,
+      },
+    ])
+    return response['message']['content']
+    # or access fields directly from the response object
+    # print(response.message.content)
 
-def TTS(text):
-    newVoiceRate = 145
-    engine.setProperty('rate',newVoiceRate)
-    engine.setProperty('voice', 4)
-    engine.say(text)
-    engine.runAndWait()
+try:
 
-def button():
-    global ispressed, answer, question
-    command = serial1.read(2)
-    if len(command) == 2:
-        if command == b"B1" and not ispressed:
-            print("Button is pressed")
-            question = stt.listen()
-            print(question)
-            ispressed = True
-            time.sleep(1)  # Debounce time for button press and release
-            for i in range(3):
-                serial1.write(b"H")
-                time.sleep(0.2)
-                serial1.write(b"L")
+    while True:
+        # Read data from the Arduino
+        if arduino.in_waiting > 0:
+            data = arduino.readline().decode().strip()
+            if data:
+                if data == "Button Pressed!":
+                    print("Button pressed!")
+                    input = stt.listen()
+                    ans = gen(input)
+                    stt.text_to_speech(ans)
+except KeyboardInterrupt:
+    print("\nExiting on user interrupt...")
 
-        elif command == b"B2" and ispressed:
-            print("Button is released")
-            response = ollama.chat(model="phi", messages=[{'role': 'user', 'content': question}], stream=False)
-            answer = response['message']['content']
-            print(answer)
-            TTS(answer)  # Call the TTS function here
-            
-            ispressed = False
+finally:
+    arduino.close()
+    print("Connection closed.")
 
-while True:
-    button()
+
+
+    

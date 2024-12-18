@@ -1,6 +1,8 @@
 import speech_recognition as sr
 import pyttsx3
 
+import os
+
 speech_engine = sr.Recognizer()
 
 def listen():
@@ -16,8 +18,9 @@ def listen():
         except sr.RequestError as e:
             print(f"Could not request results from Google Speech Recognition service; {e}")
 
-def tts(answer):
-  engine = pyttsx3.init()
-  text = answer
-  engine.say(text)
-  engine.runAndWait()
+
+def text_to_speech(text):
+    com = f"espeak-ng '{text}'"
+    os.system(com)
+
+
