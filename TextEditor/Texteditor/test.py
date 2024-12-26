@@ -1,24 +1,26 @@
-from pyttsx3.drivers.espeak import EspeakDriver
-import logging
+import speech_recognition as sr
+import pyttsx3
 
-def setup_espeak_driver():
-    try:
-        driver = EspeakDriver()
-        # Set up the driver...
-        return driver
-    except Exception as e:
-        logging.error(f"Failed to initialize EspeakDriver: {str(e)}")
-        return None
+import os
 
-# Usage
-driver = setup_espeak_driver()
-if driver:
-    try:
-        driver.say("Hello, world!")
-    except ReferenceError:
-        logging.warning("EspeakDriver was garbage collected while speaking.")
-    finally:
-        driver.stop()
-        driver.shutdown()
-else:
-    print("Couldn't set up EspeakDriver. Using alternative method...")
+speech_engine = sr.Recognizer()
+
+def listen():
+    with sr.Microphone() as source:
+        print("Please say something:")
+        audio = speech_engine.listen(source, phrase_time_limit=5)  # Set a 5-second limit
+        print("Recognizing...")
+        try:
+            text = speech_engine.recognize_google(audio, language="en-IN")
+            return text
+        except sr.UnknownValueError:
+            print("Could not understand audio")
+        except sr.RequestError as e:
+            print(f"Could not request results from Google Speech Recognition service; {e}")
+
+
+def text_to_speech(text):
+    com = f"espeak-ng '{text}'"
+    os.system(com)
+
+

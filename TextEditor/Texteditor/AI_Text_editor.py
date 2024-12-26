@@ -217,7 +217,7 @@ class TextEditor:
 
     def STT(self):
         global STTtext
-        STTtext = stt.listen()
+        STTtext = test.listen()
         self.text_area.insert(tk.END, f"\n{STTtext}")
 
     def GET_TTS(self):
