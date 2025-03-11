@@ -1,0 +1,35 @@
+<!DOCTYPE <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+  </head>
+  <body>
+      <div class="container">
+          <div>
+              <h2 class="ODC">Online<br>Doctor<br>Consultation</h2>
+              <p class="desc"><b>STAY HOME STAY SAFE!</b> Instantly connect with best doctors for medical care from you phone tablet or computer - any time</p>
+          </div>
+          <div><picture>
+              <img src="{{ url_for('static',filename='images/doctor.png') }}" alt="doctor">
+          </div>
+
+      </div>
+      <div class="container2">
+          <h1 class="heeding">How to book Online Doctor Consultation appointment</h1>
+          <img src="{{ url_for('static',filename='images/desc.png') }}" alt="doctor">
+          <div class="desc_cont">
+              <p class="steps">1.Describe your symptoms</p>
+              <p class="steps">2.Describe yourself</p>
+              <p class="steps">3.Our best doctor is waiting for you</p>
+          </div>
+          <div class="desc_cont2">
+              <p class="opt">open our website and click on join now <br> and as soon as possible our assistance <br> help you to describe you symptons</p>
+              <p class="opt">after checking symptons, you should <br> complete your health profile, so our  <br>provider knows you more for better <br> medical examination</p>
+              <p class="opt">next, you'll be connected to the doctor.<br> You can have your consultation by text,<br> video or audio chat using our website</p>
+          </div>
+      </div>
+  </body>
+</html>

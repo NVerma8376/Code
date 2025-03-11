@@ -1,0 +1,28 @@
+
+
+.mainspace{
+    display: flex;
+    /* align-items: center; */
+    gap: 24rem;
+
+    background-color: #ebf2fb;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-right: 20px;
+    /* padding-bottom: 20%; */
+    border-radius: 20px;
+    margin: 70px;
+    margin-top: 60px
+
+}
+
+.colorwala{
+    background-image: linear-gradient(150deg,#BCD3F2, #81F7E5);
+}
+
+
+
+.name{
+    color: #3d5682;
+    margin-left: 40px;
+}

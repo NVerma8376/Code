@@ -1,0 +1,104 @@
+.h2{
+    font-size: 30px;
+    font-weight: bold;
+    color: #3d5682;
+    margin-bottom: 20px;
+}
+.container{
+    display: flex;
+    /* align-items: center; */
+    gap: 24rem;
+
+    background-color: #ebf2fb;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-right: 20px;
+    /* padding-bottom: 20%; */
+    border-radius: 20px;
+    margin: 70px;
+    margin-top: 60px
+
+}
+
+.container2{
+
+    align-items: center;
+
+
+
+    /* padding-bottom: 20%; */
+
+
+}
+
+.heeding{
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #3d5682;
+    margin-bottom: 20px;
+    font-family: 'Arial Narrow';
+    padding:10px
+}
+
+.desc_cont{
+    display: flex;
+    /* align-items: center; */
+    gap: 8rem;
+    /* padding-top: 40px; */
+    padding-left: 160px;
+    /* padding-right: 20px; */
+}
+
+
+.desc_cont2{
+    display: flex;
+    /* align-items: center; */
+    gap: 3.5rem;
+    /* padding-top: 40px; */
+    padding-left: 9%;
+    /* padding-right: 20px; */
+
+}
+
+.desc{
+    font-size: 20px;
+    color: #3d5682;
+    margin-bottom: 20px;
+    font-family: 'Arial Narrow';
+    padding:10px
+}
+
+
+.ODC{
+    line-height: 1.25em;
+
+    font-size: 35px;
+    font-weight: bold;
+    color: #3d5682;
+    margin-bottom: 20px;
+    font-family: 'Arial Narrow';
+    padding:10px
+}
+
+.steps{
+    /* line-height: 1.25em; */
+    /* padding-left: 150px; */
+    font-size: 20px;
+    font-weight: bold;
+    color: #3d5682;
+    margin-bottom: 20px;
+    font-family: 'Arial Narrow';
+    /* padding-bottom: 20px; */
+}
+
+.opt{
+    /* line-height: 1.25em; */
+    /* padding-left: 150px; */
+    text-align: center;
+    font-size: 20px;
+    color: #3d5682;
+    margin-bottom: 20px;
+    font-family: 'Arial Narrow';
+    padding-bottom: 20px;
+}

@@ -29,7 +29,7 @@ try:
         if arduino.in_waiting > 0:
             data = arduino.readline().decode().strip()
             if data:
-                if data == "Button Pressed!":
+                if data == "B1":
                     print("Button pressed!")
                     input = stt.listen()
                     ans = gen(input)

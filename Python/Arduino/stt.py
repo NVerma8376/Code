@@ -20,7 +20,17 @@ def listen():
 
 
 def text_to_speech(text):
-    com = f"espeak-ng '{text}'"
+    com = f"espeak-ng '{text}' -s 112 -a 200"
     os.system(com)
 
 
+# text_to_speech("Hello, I am Ollama. How can I help you today?")
+def tts():
+    text = listen()
+    if text:
+        
+        # text_to_speech(f"{text}")
+        return text
+    else:
+        print("No input detected")
+        text_to_speech("No input detected")
