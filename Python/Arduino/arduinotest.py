@@ -1,3 +1,4 @@
+from signal import SIG_DFL
 import serial
 import time
 import stt

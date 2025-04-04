@@ -20,7 +20,7 @@ def listen():
 
 
 def text_to_speech(text):
-    com = f"espeak-ng '{text}' -s 112 -a 200"
+    com = f"espeak-ng '{text}' -s 125 -a 210"
     os.system(com)
 
 

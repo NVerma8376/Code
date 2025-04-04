@@ -19,8 +19,6 @@ question = ""
 # Set up the serial connection to the Arduino
 serial1 = serial.Serial('/dev/ttyUSB0', 9600)
 print("connected to: " + serial1.portstr)
-
-
 def ai(text):
     response: ChatResponse = chat(model='phi', messages=[
         {

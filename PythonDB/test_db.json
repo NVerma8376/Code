@@ -1,0 +1,16 @@
+{
+  "user1": {
+    "value": {
+      "name": "John",
+      "age": 31
+    },
+    "timestamp": 1741882701.2711482
+  },
+  "user2": {
+    "value": {
+      "name": "Alice",
+      "age": 25
+    },
+    "timestamp": 1741882701.270898
+  }
+}
